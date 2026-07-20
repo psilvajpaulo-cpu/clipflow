@@ -1,133 +1,2581 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>ClipFlow Automation</title>
+
+<meta name="description"
+content="Professional TikTok Content Sharing interface following TikTok Developers UX Guidelines">
+
+<meta name="theme-color" content="#111827">
+
 <link rel="icon" href="icon.png">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
 <style>
-body{background:#f4f6f9}
-.hero{padding:70px 0}
-.hidden{display:none}
-.phone{width:320px;height:560px;border-radius:25px;background:url('thumb.png') center/cover;position:relative;overflow:hidden;margin:auto}
-.caption{position:absolute;bottom:20px;left:15px;color:#fff;text-shadow:1px 1px 4px #000}
+
+:root{
+
+--primary:#0d6efd;
+--secondary:#6610f2;
+--dark:#111827;
+--light:#f7f8fc;
+--border:#dfe4ea;
+--success:#198754;
+--danger:#dc3545;
+--warning:#ffc107;
+--radius:18px;
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+
+}
+
+body{
+
+background:#eef2f7;
+color:#222;
+min-height:100vh;
+
+}
+
+.navbar{
+
+background:#fff;
+box-shadow:0 4px 18px rgba(0,0,0,.08);
+
+}
+
+.navbar-brand{
+
+font-weight:800;
+font-size:1.35rem;
+
+}
+
+.logo-circle{
+
+width:42px;
+height:42px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#0d6efd,#6610f2);
+color:white;
+margin-right:12px;
+font-size:20px;
+
+}
+
+.hero{
+
+padding:65px 0 40px;
+
+}
+
+.hero h1{
+
+font-weight:800;
+font-size:2.4rem;
+
+}
+
+.hero p{
+
+color:#6c757d;
+font-size:1.08rem;
+
+}
+
+.main-card{
+
+background:white;
+border:none;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.section-title{
+
+font-size:1.05rem;
+font-weight:700;
+margin-bottom:18px;
+
+}
+
+.status-badge{
+
+padding:8px 16px;
+border-radius:100px;
+font-size:.85rem;
+font-weight:600;
+
+}
+
+.connected{
+
+background:#d1f7df;
+color:#157347;
+
+}
+
+.disconnected{
+
+background:#ffe3e3;
+color:#b02a37;
+
+}
+
+.drop-zone{
+
+border:2px dashed #bfc9d4;
+border-radius:16px;
+padding:45px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+background:#fafbfd;
+
+}
+
+.drop-zone:hover{
+
+border-color:#0d6efd;
+background:#f2f7ff;
+
+}
+
+.drop-zone i{
+
+font-size:3rem;
+color:#0d6efd;
+
+}
+
+.preview-box{
+
+height:540px;
+background:#111;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+
+}
+
+.preview-box video{
+
+max-height:100%;
+max-width:100%;
+border-radius:18px;
+
+}
+
+.form-label{
+
+font-weight:600;
+
+}
+
+.form-control,
+.form-select{
+
+border-radius:12px;
+
+}
+
+.btn{
+
+border-radius:12px;
+
+}
+
+.timeline{
+
+padding-left:0;
+list-style:none;
+
+}
+
+.timeline li{
+
+padding:12px 0;
+border-bottom:1px solid #eee;
+display:flex;
+align-items:center;
+
+}
+
+.timeline i{
+
+font-size:1.2rem;
+margin-right:12px;
+
+}
+
+.footer{
+
+margin-top:70px;
+padding:30px;
+text-align:center;
+color:#888;
+
+}
+
+.toast-container{
+
+position:fixed;
+top:20px;
+right:20px;
+z-index:99999;
+
+}
+
+.fade-in{
+
+animation:fade .5s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+transform:none;
+
+}
+
+}
+
+@media(max-width:992px){
+
+.preview-box{
+
+height:420px;
+
+}
+
+.hero{
+
+text-align:center;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:2rem;
+
+}
+
+.preview-box{
+
+height:360px;
+
+}
+
+}
+
 </style>
+
 </head>
+
 <body>
-<nav class="navbar bg-white shadow-sm">
+
+<nav class="navbar navbar-expand-lg">
+
 <div class="container">
-<a class="navbar-brand fw-bold" href="#"><img src="icon.png" width="36"> ClipFlow Automation</a>
-<div>
-<a href="privacy.html" class="me-3">Privacy Policy</a>
-<a href="terms.html">Terms of Service</a>
+
+<a class="navbar-brand d-flex align-items-center" href="#">
+
+<div class="logo-circle">
+
+<i class="bi bi-play-fill"></i>
+
 </div>
+
+ClipFlow Automation
+
+</a>
+
+<div class="ms-auto d-flex align-items-center">
+
+<span
+id="connectionBadge"
+class="status-badge disconnected">
+
+Not Connected
+
+</span>
+
 </div>
+
+</div>
+
 </nav>
 
-<div class="container hero" id="page1">
-<div class="text-center">
-<img src="icon.png" width="90">
-<h1 class="mt-3">ClipFlow Automation</h1>
-<p class="text-muted">Publish videos to TikTok using the official API.</p>
-<button class="btn btn-dark btn-lg" onclick="show(2)">Connect TikTok</button>
-</div>
+<section class="hero">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-7">
+
+<h1>
+
+Professional TikTok Content Sharing
+
+</h1>
+
+<p class="mt-3">
+
+Connect your TikTok account, upload a video, review every detail before publishing, and complete the entire content sharing flow through a clear, user-controlled interface that aligns with TikTok UX requirements.
+
+</p>
+
 </div>
 
-<div class="container py-5 hidden" id="page2">
-<div class="card mx-auto" style="max-width:500px">
-<div class="card-body text-center">
-<h3>TikTok Authorization</h3>
-<p>The application requests:</p>
-<ul class="text-start">
-<li>Basic profile</li>
-<li>Video publishing</li>
-</ul>
-<button class="btn btn-primary" onclick="show(3)">Authorize</button>
-</div>
-</div>
+<div class="col-lg-5 text-lg-end mt-4 mt-lg-0">
+
+<button
+class="btn btn-primary btn-lg px-4"
+id="startButton">
+
+<i class="bi bi-tiktok"></i>
+
+Connect TikTok
+
+</button>
+
 </div>
 
-<div class="container py-5 hidden" id="page3">
-<div class="row">
+</div>
+
+</div>
+
+</section>
+
+<div class="container mb-5">
+
+<div class="row g-4">
+
+<!-- LEFT COLUMN -->
+
 <div class="col-lg-4">
-<div class="card">
-<div class="card-body text-center">
-<img src="avatar.png" width="80" class="rounded-circle mb-3">
-<h5>João Paulo Pereira Silva</h5>
-<p>@palavrasquecuram.ofc</p>
+
+    <!-- USER ACCOUNT -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-person-circle me-2"></i>
+
+                Account
+
+            </h5>
+
+            <div class="text-center">
+
+                <div class="mb-3">
+
+                    <div
+                        id="avatarPlaceholder"
+                        class="rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                        style="width:90px;height:90px;background:#eef2f7;">
+
+                        <i class="bi bi-person fs-1 text-secondary"></i>
+
+                    </div>
+
+                </div>
+
+                <h5 id="profileName">
+
+                    Not Connected
+
+                </h5>
+
+                <small
+                    id="profileHandle"
+                    class="text-muted">
+
+                    Connect your TikTok account
+
+                </small>
+
+            </div>
+
+            <hr>
+
+            <div class="d-grid">
+
+                <button
+                    class="btn btn-primary"
+                    id="oauthButton">
+
+                    <i class="bi bi-tiktok me-2"></i>
+
+                    Connect with TikTok
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CONNECTION STATUS -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-shield-check me-2"></i>
+
+                Authorization
+
+            </h5>
+
+            <table class="table table-borderless align-middle mb-0">
+
+                <tr>
+
+                    <td>OAuth</td>
+
+                    <td class="text-end">
+
+                        <span
+                            id="oauthStatus"
+                            class="badge bg-danger">
+
+                            Pending
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Access Token</td>
+
+                    <td class="text-end">
+
+                        <span
+                            id="tokenStatus"
+                            class="badge bg-danger">
+
+                            Missing
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>User Permission</td>
+
+                    <td class="text-end">
+
+                        <span
+                            id="permissionStatus"
+                            class="badge bg-danger">
+
+                            Waiting
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- PROCESS -->
+
+    <div class="card main-card fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-list-check me-2"></i>
+
+                Publishing Flow
+
+            </h5>
+
+            <ul class="timeline">
+
+                <li>
+
+                    <i class="bi bi-1-circle text-primary"></i>
+
+                    User Authentication
+
+                </li>
+
+                <li>
+
+                    <i class="bi bi-2-circle text-primary"></i>
+
+                    TikTok Authorization
+
+                </li>
+
+                <li>
+
+                    <i class="bi bi-3-circle text-primary"></i>
+
+                    Upload Video
+
+                </li>
+
+                <li>
+
+                    <i class="bi bi-4-circle text-primary"></i>
+
+                    Review Metadata
+
+                </li>
+
+                <li>
+
+                    <i class="bi bi-5-circle text-primary"></i>
+
+                    Publish Content
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
 </div>
-</div>
-</div>
+
+<!-- RIGHT COLUMN -->
+
 <div class="col-lg-8">
-<div class="card">
-<div class="card-body">
-<h4>Create TikTok Post</h4>
-<img src="thumb.png" class="img-fluid rounded mb-3">
-<div class="mb-3">
-<label class="form-label">Caption</label>
-<textarea id="cap" class="form-control" rows="4">Nature relaxing video...</textarea>
-<div class="text-end"><small><span id="count">25</span>/2200</small></div>
-</div>
-<div class="mb-3">
-<label class="form-label">Privacy</label>
-<select class="form-select">
-<option selected disabled>Select privacy</option>
-<option>Public</option>
-<option>Friends</option>
-<option>Only Me</option>
-</select>
-</div>
-<div class="form-check"><input class="form-check-input" type="checkbox" id="c1"><label class="form-check-label" for="c1">Allow comments</label></div>
-<div class="form-check"><input class="form-check-input" type="checkbox" id="c2"><label class="form-check-label" for="c2">Allow duet</label></div>
-<div class="form-check"><input class="form-check-input" type="checkbox" id="c3"><label class="form-check-label" for="c3">Allow stitch</label></div>
-<hr>
-<div class="form-check"><input class="form-check-input" type="checkbox" id="commercial" onchange="document.getElementById('brand').style.display=this.checked?'block':'none'"><label class="form-check-label" for="commercial">This post contains commercial content</label></div>
-<div id="brand" style="display:none" class="ms-4">
-<div class="form-check"><input class="form-check-input" type="checkbox" id="b1"><label class="form-check-label" for="b1">Your Brand</label></div>
-<div class="form-check"><input class="form-check-input" type="checkbox" id="b2"><label class="form-check-label" for="b2">Branded Content</label></div>
-</div>
-<hr>
-<div class="form-check">
-<input class="form-check-input" type="checkbox" id="music">
-<label class="form-check-label" for="music">I confirm I have the rights to use all audio and agree to TikTok Music Usage Confirmation.</label>
-</div>
-<button class="btn btn-success mt-4" onclick="show(4)">Publish to TikTok</button>
-</div></div></div></div></div>
 
-<div class="container py-5 hidden text-center" id="page4">
-<h2>Uploading...</h2>
-<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:85%">85%</div></div>
-<br><button class="btn btn-primary" onclick="show(5)">Continue</button>
+    <!-- VIDEO UPLOAD -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-cloud-upload me-2"></i>
+
+                Upload Video
+
+            </h5>
+
+            <div
+                id="dropZone"
+                class="drop-zone">
+
+                <i class="bi bi-cloud-arrow-up"></i>
+
+                <h5 class="mt-3">
+
+                    Drag your video here
+
+                </h5>
+
+                <p class="text-muted">
+
+                    or click to select an MP4 or MOV file
+
+                </p>
+
+                <input
+                    id="videoInput"
+                    type="file"
+                    accept="video/mp4,video/quicktime"
+                    hidden>
+
+                <button
+                    class="btn btn-outline-primary mt-2"
+                    id="browseButton">
+
+                    Browse Video
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PREVIEW -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-play-btn me-2"></i>
+
+                Preview
+
+            </h5>
+
+            <div class="preview-box">
+
+                <video
+                    id="videoPreview"
+                    controls
+                    style="display:none;"></video>
+
+                <div
+                    id="emptyPreview"
+                    class="text-center text-light">
+
+                    <i class="bi bi-film fs-1"></i>
+
+                    <h5 class="mt-3">
+
+                        No video selected
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- POST DETAILS -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-pencil-square me-2"></i>
+
+                Post Details
+
+            </h5>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Caption
+
+                </label>
+
+                <textarea
+                    id="caption"
+                    class="form-control"
+                    rows="5"
+                    maxlength="2200"
+                    placeholder="Describe your video..."></textarea>
+
+                <div class="d-flex justify-content-between mt-2">
+
+                    <small class="text-muted">
+
+                        Add hashtags and mention relevant topics.
+
+                    </small>
+
+                    <small>
+
+                        <span id="captionCount">0</span>/2200
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Suggested Hashtags
+
+                    </label>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm hashtag">
+
+                            #foryou
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm hashtag">
+
+                            #viral
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm hashtag">
+
+                            #technology
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm hashtag">
+
+                            #clipflow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+
+                        Visibility
+
+                    </label>
+
+                    <select
+                        id="visibility"
+                        class="form-select">
+
+                        <option value="public">
+
+                            Public
+
+                        </option>
+
+                        <option value="friends">
+
+                            Friends
+
+                        </option>
+
+                        <option value="private">
+
+                            Only Me
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PRIVACY SETTINGS -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-shield-lock me-2"></i>
+
+                Privacy Settings
+
+            </h5>
+
+            <div class="form-check form-switch mb-3">
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="allowComments"
+                    checked>
+
+                <label
+                    class="form-check-label"
+                    for="allowComments">
+
+                    Allow Comments
+
+                </label>
+
+            </div>
+
+            <div class="form-check form-switch mb-3">
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="allowDuet"
+                    checked>
+
+                <label
+                    class="form-check-label"
+                    for="allowDuet">
+
+                    Allow Duet
+
+                </label>
+
+            </div>
+
+            <div class="form-check form-switch">
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="allowStitch"
+                    checked>
+
+                <label
+                    class="form-check-label"
+                    for="allowStitch">
+
+                    Allow Stitch
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- COVER -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-image me-2"></i>
+
+                Cover Frame
+
+            </h5>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-8">
+
+                    <input
+                        type="range"
+                        class="form-range"
+                        id="coverFrame"
+                        min="0"
+                        max="100"
+                        value="0">
+
+                </div>
+
+                <div class="col-md-4 text-center">
+
+                    <span
+                        id="coverValue"
+                        class="badge bg-primary">
+
+                        Frame 0%
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <small class="text-muted">
+
+                Select the frame that will be used as the video cover.
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <!-- SCHEDULE -->
+
+    <div class="card main-card mb-4 fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-calendar-event me-2"></i>
+
+                Publish
+
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Publication Mode
+
+                    </label>
+
+                    <select
+                        id="publishMode"
+                        class="form-select">
+
+                        <option value="now">
+
+                            Publish Now
+
+                        </option>
+
+                        <option value="schedule">
+
+                            Schedule
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Date & Time
+
+                    </label>
+
+                    <input
+                        id="scheduleDate"
+                        type="datetime-local"
+                        class="form-control"
+                        disabled>
+
+                </div>
+
+            </div>
+
+            <div class="d-grid">
+
+                <button
+                    id="publishButton"
+                    class="btn btn-success btn-lg">
+
+                    <i class="bi bi-send-check me-2"></i>
+
+                    Publish Video
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACTIVITY LOG -->
+
+    <div class="card main-card fade-in">
+
+        <div class="card-body">
+
+            <h5 class="section-title">
+
+                <i class="bi bi-clock-history me-2"></i>
+
+                Activity Log
+
+            </h5>
+
+            <div
+                id="activityLog"
+                class="small">
+
+                <div class="border-bottom py-2 text-muted">
+
+                    Waiting for user authentication...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<div class="container py-5 hidden text-center" id="page5">
-<div class="alert alert-success">
-<h3>Video published successfully</h3>
-<p>Post ID: DEMO-123456</p>
-</div>
-<button class="btn btn-dark" onclick="show(6)">Open TikTok Sandbox</button>
 </div>
 
-<div class="container py-5 hidden text-center" id="page6">
-<h2>TikTok Sandbox Preview</h2>
-<div class="phone"><div class="caption">@palavrasquecuram.ofc<br>Nature relaxing video...</div></div>
 </div>
 
-<footer class="bg-white border-top mt-5 p-4 text-center">
-<a href="privacy.html">Privacy Policy</a> |
-<a href="terms.html">Terms of Service</a><br>
-© 2026 ClipFlow Automation
+<footer class="footer">
+
+    ClipFlow Automation • TikTok Content Sharing Demo
+
 </footer>
 
+<!-- Toast Container -->
+
+<div class="toast-container"></div>
+
+<!-- Success Modal -->
+
+<div
+    class="modal fade"
+    id="successModal"
+    tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Publication Completed
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body text-center">
+
+                <i class="bi bi-check-circle-fill text-success"
+                   style="font-size:64px;"></i>
+
+                <h4 class="mt-3">
+
+                    Your video is ready!
+
+                </h4>
+
+                <p class="text-muted">
+
+                    The publishing flow has been completed successfully.
+
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <script>
-function show(n){
-for(let i=1;i<=6;i++)document.getElementById("page"+i).classList.add("hidden");
-document.getElementById("page"+n).classList.remove("hidden");
+
+
+/*
+========================================
+ ClipFlow Automation
+ Application Logic
+========================================
+*/
+
+
+// GLOBAL STATE
+
+const appState = {
+
+    connected:false,
+
+    user:null,
+
+    video:null,
+
+    token:null,
+
+    published:false
+
+};
+
+
+
+// DOM ELEMENTS
+
+
+const startButton = document.getElementById("startButton");
+
+const oauthButton = document.getElementById("oauthButton");
+
+const connectionBadge = document.getElementById("connectionBadge");
+
+const oauthStatus = document.getElementById("oauthStatus");
+
+const tokenStatus = document.getElementById("tokenStatus");
+
+const permissionStatus = document.getElementById("permissionStatus");
+
+const profileName = document.getElementById("profileName");
+
+const profileHandle = document.getElementById("profileHandle");
+
+const videoInput = document.getElementById("videoInput");
+
+const browseButton = document.getElementById("browseButton");
+
+const dropZone = document.getElementById("dropZone");
+
+const videoPreview = document.getElementById("videoPreview");
+
+const emptyPreview = document.getElementById("emptyPreview");
+
+const caption = document.getElementById("caption");
+
+const captionCount = document.getElementById("captionCount");
+
+const publishMode = document.getElementById("publishMode");
+
+const scheduleDate = document.getElementById("scheduleDate");
+
+const publishButton = document.getElementById("publishButton");
+
+const activityLog = document.getElementById("activityLog");
+
+const coverFrame = document.getElementById("coverFrame");
+
+const coverValue = document.getElementById("coverValue");
+
+
+
+// =====================================
+// LOG SYSTEM
+// =====================================
+
+
+function addLog(message,type="normal"){
+
+
+    const icon = {
+
+        success:"bi-check-circle text-success",
+
+        error:"bi-x-circle text-danger",
+
+        info:"bi-info-circle text-primary",
+
+        normal:"bi-clock text-secondary"
+
+    };
+
+
+    const item=document.createElement("div");
+
+
+    item.className="border-bottom py-2";
+
+
+    item.innerHTML=`
+
+        <i class="bi ${icon[type]} me-2"></i>
+
+        ${message}
+
+        <small class="text-muted float-end">
+
+        ${new Date().toLocaleTimeString()}
+
+        </small>
+
+    `;
+
+
+    activityLog.prepend(item);
+
+
 }
-cap.oninput=()=>count.innerText=cap.value.length;
+
+
+
+// =====================================
+// TOAST SYSTEM
+// =====================================
+
+
+function showToast(message,type="primary"){
+
+
+    const container=document.querySelector(".toast-container");
+
+
+    const toast=document.createElement("div");
+
+
+    toast.className=`toast align-items-center text-bg-${type} border-0 show mb-2`;
+
+
+    toast.innerHTML=`
+
+    <div class="d-flex">
+
+        <div class="toast-body">
+
+            ${message}
+
+        </div>
+
+
+        <button
+
+        class="btn-close btn-close-white me-2 m-auto"
+
+        onclick="this.parentElement.parentElement.remove()">
+
+        </button>
+
+
+    </div>
+
+    `;
+
+
+    container.appendChild(toast);
+
+
+
+    setTimeout(()=>{
+
+        toast.remove();
+
+    },4000);
+
+
+
+}
+
+
+
+// =====================================
+// TIKTOK OAUTH FLOW SIMULATION
+// =====================================
+
+
+async function connectTikTok(){
+
+
+
+    addLog(
+
+        "Starting TikTok authorization process...",
+
+        "info"
+
+    );
+
+
+    showToast(
+
+        "Opening TikTok authorization..."
+
+    );
+
+
+
+    await wait(1500);
+
+
+
+    addLog(
+
+        "User authorization approved.",
+
+        "success"
+
+    );
+
+
+
+    await wait(1000);
+
+
+
+    appState.connected=true;
+
+
+    appState.user={
+
+        name:"ClipFlow Creator",
+
+        username:"@clipflow.demo"
+
+    };
+
+
+    appState.token="demo_access_token_123456";
+
+
+
+    updateConnectionUI();
+
+
+
+    addLog(
+
+        "Access token generated successfully.",
+
+        "success"
+
+    );
+
+
+    showToast(
+
+        "TikTok account connected!",
+
+        "success"
+
+    );
+
+
+
+}
+
+
+
+
+function updateConnectionUI(){
+
+
+
+    connectionBadge.className=
+
+    "status-badge connected";
+
+
+    connectionBadge.innerHTML=
+
+    "Connected";
+
+
+
+    oauthStatus.className=
+
+    "badge bg-success";
+
+
+    oauthStatus.innerHTML=
+
+    "Authorized";
+
+
+
+    tokenStatus.className=
+
+    "badge bg-success";
+
+
+    tokenStatus.innerHTML=
+
+    "Active";
+
+
+
+    permissionStatus.className=
+
+    "badge bg-success";
+
+
+    permissionStatus.innerHTML=
+
+    "Granted";
+
+
+
+    profileName.innerHTML=
+
+    appState.user.name;
+
+
+
+    profileHandle.innerHTML=
+
+    appState.user.username;
+
+
+
+    startButton.innerHTML=
+
+    `<i class="bi bi-check-circle me-2"></i>
+
+    TikTok Connected`;
+
+
+
+    oauthButton.innerHTML=
+
+    `<i class="bi bi-check-circle me-2"></i>
+
+    Connected`;
+
+
+
+    oauthButton.disabled=true;
+
+
+
+}
+
+
+
+// =====================================
+// BUTTON EVENTS
+// =====================================
+
+
+startButton.addEventListener(
+
+"click",
+
+connectTikTok
+
+);
+
+
+oauthButton.addEventListener(
+
+"click",
+
+connectTikTok
+
+);
+
+
+
+// UTILITY
+
+
+function wait(ms){
+
+    return new Promise(resolve=>setTimeout(resolve,ms));
+
+}
+
+
+
+
+// =====================================
+// VIDEO UPLOAD SYSTEM
+// =====================================
+
+
+browseButton.addEventListener(
+
+"click",
+
+()=>{
+
+    videoInput.click();
+
+}
+
+);
+
+
+
+videoInput.addEventListener(
+
+"change",
+
+(event)=>{
+
+    const file = event.target.files[0];
+
+    if(file){
+
+        handleVideo(file);
+
+    }
+
+}
+
+);
+
+
+
+// DRAG AND DROP
+
+
+dropZone.addEventListener(
+
+"dragover",
+
+(event)=>{
+
+    event.preventDefault();
+
+    dropZone.style.borderColor="#0d6efd";
+
+}
+
+);
+
+
+
+dropZone.addEventListener(
+
+"dragleave",
+
+()=>{
+
+    dropZone.style.borderColor="#bfc9d4";
+
+}
+
+);
+
+
+
+dropZone.addEventListener(
+
+"drop",
+
+(event)=>{
+
+    event.preventDefault();
+
+
+    dropZone.style.borderColor="#bfc9d4";
+
+
+    const file = event.dataTransfer.files[0];
+
+
+    if(file){
+
+        handleVideo(file);
+
+    }
+
+
+}
+
+);
+
+
+
+
+// VIDEO PROCESSING
+
+
+function handleVideo(file){
+
+
+
+    const allowedTypes=[
+
+        "video/mp4",
+
+        "video/quicktime"
+
+    ];
+
+
+
+    if(!allowedTypes.includes(file.type)){
+
+
+        showToast(
+
+            "Only MP4 and MOV videos are supported.",
+
+            "danger"
+
+        );
+
+
+        addLog(
+
+            "Invalid video format selected.",
+
+            "error"
+
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    const maxSize=500 * 1024 * 1024;
+
+
+
+    if(file.size > maxSize){
+
+
+        showToast(
+
+            "Video exceeds the maximum allowed size.",
+
+            "danger"
+
+        );
+
+
+        addLog(
+
+            "Upload rejected: file too large.",
+
+            "error"
+
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    appState.video=file;
+
+
+
+    const url=URL.createObjectURL(file);
+
+
+
+    videoPreview.src=url;
+
+
+    videoPreview.style.display="block";
+
+
+    emptyPreview.style.display="none";
+
+
+
+    videoPreview.load();
+
+
+
+    addLog(
+
+        `Video uploaded: ${file.name}`,
+
+        "success"
+
+    );
+
+
+
+    showToast(
+
+        "Video loaded successfully!",
+
+        "success"
+
+    );
+
+
+}
+
+
+
+
+// =====================================
+// CAPTION COUNTER
+// =====================================
+
+
+caption.addEventListener(
+
+"input",
+
+()=>{
+
+
+    captionCount.innerHTML=
+
+    caption.value.length;
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// HASHTAG BUTTONS
+// =====================================
+
+
+document
+
+.querySelectorAll(".hashtag")
+
+.forEach(button=>{
+
+
+    button.addEventListener(
+
+    "click",
+
+    ()=>{
+
+
+        const tag=button.innerText;
+
+
+        if(!caption.value.includes(tag)){
+
+
+            caption.value +=
+
+            " " + tag;
+
+
+            caption.dispatchEvent(
+
+                new Event("input")
+
+            );
+
+
+        }
+
+
+    }
+
+
+    );
+
+
+});
+
+
+
+
+// =====================================
+// COVER FRAME CONTROL
+// =====================================
+
+
+coverFrame.addEventListener(
+
+"input",
+
+()=>{
+
+
+    coverValue.innerHTML=
+
+    `Frame ${coverFrame.value}%`;
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// SCHEDULE CONTROL
+// =====================================
+
+
+publishMode.addEventListener(
+
+"change",
+
+()=>{
+
+
+    if(
+
+        publishMode.value==="schedule"
+
+    ){
+
+
+        scheduleDate.disabled=false;
+
+
+    }
+
+    else{
+
+
+        scheduleDate.disabled=true;
+
+        scheduleDate.value="";
+
+
+    }
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// FORM VALIDATION
+// =====================================
+
+
+function validatePost(){
+
+
+
+    if(!appState.connected){
+
+
+        showToast(
+
+            "Please connect your TikTok account first.",
+
+            "warning"
+
+        );
+
+
+        addLog(
+
+            "Publication blocked: account not connected.",
+
+            "error"
+
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(!appState.video){
+
+
+        showToast(
+
+            "Please upload a video before publishing.",
+
+            "warning"
+
+        );
+
+
+        addLog(
+
+            "Publication blocked: no video selected.",
+
+            "error"
+
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(
+
+        publishMode.value==="schedule"
+
+        &&
+
+        !scheduleDate.value
+
+    ){
+
+
+        showToast(
+
+            "Select a publication date.",
+
+            "warning"
+
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    return true;
+
+
+}
+
+
+
+
+// =====================================
+// PUBLISH FLOW
+// =====================================
+
+
+publishButton.addEventListener(
+
+"click",
+
+async ()=>{
+
+
+    if(!validatePost()){
+
+        return;
+
+    }
+
+
+
+    publishButton.disabled=true;
+
+
+
+    publishButton.innerHTML=
+
+    `
+
+    <span class="spinner-border spinner-border-sm"></span>
+
+    Processing...
+
+    `;
+
+
+
+    addLog(
+
+        "Preparing content package...",
+
+        "info"
+
+    );
+
+
+
+    await wait(1500);
+
+
+
+    addLog(
+
+        "Uploading video to TikTok API...",
+
+        "info"
+
+    );
+
+
+
+    await wait(2000);
+
+
+
+    addLog(
+
+        "Applying privacy settings...",
+
+        "info"
+
+    );
+
+
+
+    await wait(1500);
+
+
+
+    addLog(
+
+        "Content published successfully.",
+
+        "success"
+
+    );
+
+
+
+    appState.published=true;
+
+
+
+    publishButton.disabled=false;
+
+
+
+    publishButton.innerHTML=
+
+    `
+
+    <i class="bi bi-send-check me-2"></i>
+
+    Publish Video
+
+    `;
+
+
+
+    showToast(
+
+        "Video published successfully!",
+
+        "success"
+
+    );
+
+
+
+    const modal=
+
+    new bootstrap.Modal(
+
+        document.getElementById("successModal")
+
+    );
+
+
+
+    modal.show();
+
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// LOCAL STORAGE MANAGEMENT
+// =====================================
+
+
+function saveSession(){
+
+
+    const session={
+
+        connected:appState.connected,
+
+        user:appState.user,
+
+        published:appState.published,
+
+        lastCaption:caption.value,
+
+        visibility:document.getElementById("visibility").value
+
+    };
+
+
+    localStorage.setItem(
+
+        "clipflow_session",
+
+        JSON.stringify(session)
+
+    );
+
+
+}
+
+
+
+
+function loadSession(){
+
+
+
+    const saved=
+
+    localStorage.getItem(
+
+        "clipflow_session"
+
+    );
+
+
+
+    if(!saved){
+
+        return;
+
+    }
+
+
+
+    try{
+
+
+        const session=
+
+        JSON.parse(saved);
+
+
+
+        if(session.connected){
+
+
+            appState.connected=true;
+
+
+            appState.user=session.user;
+
+
+            updateConnectionUI();
+
+
+
+            addLog(
+
+                "Previous session restored.",
+
+                "success"
+
+            );
+
+
+        }
+
+
+
+        if(session.lastCaption){
+
+
+            caption.value=session.lastCaption;
+
+
+            caption.dispatchEvent(
+
+                new Event("input")
+
+            );
+
+
+        }
+
+
+
+        if(session.visibility){
+
+
+            document.getElementById(
+
+                "visibility"
+
+            ).value=session.visibility;
+
+
+        }
+
+
+
+    }
+
+    catch(error){
+
+
+        console.error(
+
+            "Session recovery error",
+
+            error
+
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+// SAVE AFTER CONNECTION
+
+
+const originalUpdateConnectionUI=
+
+updateConnectionUI;
+
+
+updateConnectionUI=function(){
+
+
+    originalUpdateConnectionUI();
+
+
+    saveSession();
+
+
+};
+
+
+
+
+// SAVE CAPTION CHANGES
+
+
+caption.addEventListener(
+
+"change",
+
+()=>{
+
+
+    saveSession();
+
+
+}
+
+);
+
+
+
+
+// SAVE VISIBILITY
+
+
+document
+
+.getElementById("visibility")
+
+.addEventListener(
+
+"change",
+
+()=>{
+
+
+    saveSession();
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// LOADING INDICATOR
+// =====================================
+
+
+function showLoading(message){
+
+
+
+    const loader=document.createElement("div");
+
+
+
+    loader.id="clipflowLoader";
+
+
+    loader.className=
+
+    "position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center";
+
+
+    loader.style.background=
+
+    "rgba(0,0,0,.45)";
+
+
+    loader.style.zIndex="9999";
+
+
+
+    loader.innerHTML=`
+
+    <div class="bg-white rounded-4 p-4 text-center shadow">
+
+        <div class="spinner-border text-primary mb-3"></div>
+
+        <h6>${message}</h6>
+
+    </div>
+
+    `;
+
+
+
+    document.body.appendChild(loader);
+
+
+
+}
+
+
+
+function hideLoading(){
+
+
+    const loader=
+
+    document.getElementById(
+
+        "clipflowLoader"
+
+    );
+
+
+    if(loader){
+
+        loader.remove();
+
+    }
+
+
+}
+
+
+
+
+// =====================================
+// NETWORK ERROR HANDLING
+// =====================================
+
+
+window.addEventListener(
+
+"offline",
+
+()=>{
+
+
+    showToast(
+
+        "Internet connection unavailable.",
+
+        "danger"
+
+    );
+
+
+    addLog(
+
+        "Network disconnected.",
+
+        "error"
+
+    );
+
+
+}
+
+);
+
+
+
+window.addEventListener(
+
+"online",
+
+()=>{
+
+
+    showToast(
+
+        "Internet connection restored.",
+
+        "success"
+
+    );
+
+
+    addLog(
+
+        "Network connection restored.",
+
+        "success"
+
+    );
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// KEYBOARD SHORTCUTS
+// =====================================
+
+
+document.addEventListener(
+
+"keydown",
+
+(event)=>{
+
+
+    if(
+
+        event.ctrlKey
+
+        &&
+
+        event.key==="Enter"
+
+    ){
+
+
+        publishButton.click();
+
+
+    }
+
+
+}
+
+);
+
+
+
+
+// =====================================
+// INITIALIZATION
+// =====================================
+
+
+window.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+
+    loadSession();
+
+
+
+    addLog(
+
+        "ClipFlow Automation initialized.",
+
+        "success"
+
+    );
+
+
+
+});
+
+
+
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
+
+
 </html>
